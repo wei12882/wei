@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气转凉提醒</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(to bottom, #a8c0ff, #3f4c6b);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+        
+        .temperature {
+            font-size: 5rem;
+            margin: 20px 0;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .message {
+            font-size: 1.8rem;
+            margin: 30px 0;
+            line-height: 1.6;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .clothing-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+        
+        .icon i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #e3f2fd;
+        }
+        
+        .tips {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: left;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        .tips h2 {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: #fff;
+            font-size: 1em;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(105vh);
+            }
+        }
+        
+        footer {
+            margin-top: 30px;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .temperature {
+                font-size: 3.5rem;
+            }
+            
+            .message {
+                font-size: 1.4rem;
+            }
+            
+            .container {
+                padding: 25px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 雪花效果 -->
+    <div id="snow-container"></div>
+    
+    <div class="container">
+        <h1>天气转凉提醒</h1>
+        
+        <div class="temperature">5°C</div>
+        
+        <div class="message">
+            天气冷了，记得多穿点衣服，注意保暖哦！
+        </div>
+        
+        <div class="clothing-icons">
+            <div class="icon">
+                <i class="fas fa-tshirt"></i>
+                <span>保暖内衣</span>
+            </div>
+            <div class="icon">
+                <i class="fas fa-mitten"></i>
+                <span>手套</span>
+            </div>
+            <div class="icon">
+                <i class="fas fa-scarf"></i>
+                <span>围巾</span>
+            </div>
+            <div class="icon">
+                <i class="fas fa-hat-winter"></i>
+                <span>帽子</span>
+            </div>
+        </div>
+        
+        <div class="tips">
+            <h2>保暖小贴士</h2>
+            <ul>
+                <li>多喝温水，保持身体水分</li>
+                <li>适当增加高蛋白食物摄入</li>
+                <li>注意头部、颈部和脚部的保暖</li>
+                <li>保持室内适当通风</li>
+                <li>适当进行室内运动</li>
+            </ul>
+        </div>
+    </div>
+    
+    <footer>
+        ❄️ 温馨提示：照顾好自己，健康第一 ❄️
+    </footer>
+
+    <script>
+        // 创建雪花效果
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            
+            // 随机大小
+            const size = Math.random() * 1.5 + 0.5;
+            snowflake.style.fontSize = `${size}em`;
+            
+            // 随机位置
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            
+            // 随机透明度
+            snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+            
+            // 随机动画时长
+            const duration = Math.random() * 5 + 5;
+            snowflake.style.animationDuration = `${duration}s`;
+            
+            document.getElementById('snow-container').appendChild(snowflake);
+            
+            // 雪花落地后移除
+            setTimeout(() => {
+                snowflake.remove();
+            }, duration * 1000);
+        }
+        
+        // 定期生成雪花
+        setInterval(createSnowflake, 200);
+        
+        // 初始生成一些雪花
+        for (let i = 0; i < 20; i++) {
+            setTimeout(createSnowflake, i * 100);
+        }
+    </script>
+</body>
+</html>
